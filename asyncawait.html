@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication</title>
+</head>
+<body>
+    <button id="loginButton">Login</button>
+
+    <script>
+        const userLogin = () => {
+            console.log('Enter Username and Password');
+            let username = prompt("Enter username: ");
+            let password = prompt("Enter password: ");
+
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('Performing User Authentication');
+                    if (username === "deniz" && password === "deniz") {
+                        resolve("User Authenticated!");
+                    } else {
+                        reject("Authentication Failed");
+                    }
+                }, 1000);
+            });
+        };
+
+        function goToHomePage(userAuthStatus) {
+            return Promise.resolve(`Go to Homepage as: ${userAuthStatus}`);
+        }
+
+        document.getElementById('loginButton').addEventListener('click', () => {
+            userLogin()
+                .then((response) => {
+                    console.log('Validated User');
+                    return goToHomePage(response);
+                })
+                .then((userAuthStatus) => {
+                    console.log(userAuthStatus);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+</html>
